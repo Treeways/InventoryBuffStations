@@ -3,10 +3,18 @@ Tired of forgetting to use buff stations?
 
 Look no further - simply right-click one of these stations from your inventory for the buff!
 
-[url]https://files.catbox.moe/qlvi5g.gif[/url]
+Works with:
+- Slice of Cake
+- Ammo Box
+- Bewitchment Table
+- Crystal Ball
+- Sharpening Station
+- War Table
 
-Optional QoL features (disabled by default):
-- Make Slice of Cake last infinitely
-- Toggle stations as long as they're in a player inventory
+Also compatible with Fargo's Mutant Mod (ie. the "Automatic Station Buffs When Nearby" option).
+
+Optional QoL features (toggleable options, disabled by default):
+- Infinite Slice of Cake buff duration
+- Automatic station buffs, as long as they're in the player's inventory or storage (Piggy Bank, Safe, Void Vault or Defender's Forge)
 
 Feel free to leave a feature suggestion, or a mod compatibility addon.
