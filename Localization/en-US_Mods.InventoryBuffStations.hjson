@@ -1,0 +1,37 @@
+Configs: {
+	BuffConfig: {
+		DisplayName: Buff Options
+
+		ApplyBuffsPassivelyToggle: {
+			Tooltip:
+				'''
+				Provides buffs passively when buff stations are in your inventory,
+				[i:87] Piggy Bank, [i:4076] Void Vault, [i:346] Safe, or [i:3813] Defender's Forge.
+
+				Applies to:
+				- [i:2177] Ammo Box
+				- [i:2999] Bewitching Table
+				- [i:487] Crystal Ball
+				- [i:3198] Sharpening Station
+				- [i:3814] War Table
+
+				(Will not apply to the [i:3750] Slice of Cake unless Infinite Sugar Rush is toggled.)
+				'''
+			Label: "[i:1309] Automatically Apply Station Buffs"
+		}
+
+		InfiniteSugarRushToggle: {
+			Tooltip: "[i:3099] Increases the Slice of Cake's buff duration from 2 minutes to infinite."
+			Label: "[i:3750] Infinite Sugar Rush"
+		}
+	}
+
+	ClientConfig: {
+		DisplayName: Client Config
+
+		MuteSoundsToggle: {
+			Label: "[i:566] Mute Mod Sounds"
+			Tooltip: ""
+		}
+	}
+}
