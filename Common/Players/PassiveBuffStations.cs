@@ -25,6 +25,7 @@ namespace InventoryBuffStations.Common.Players {
 					!Player.HasBuff(BuffID.SugarRush)
 				) {
 					Player.AddBuff(BuffID.SugarRush, 3);
+					// !Player.immune prevents sound blasting on player load-in or respawn
 					if (!Player.immune && !ModContent.GetInstance<ClientConfig>().MuteSoundsToggle)
 						SoundEngine.PlaySound(SoundID.Item2, Player.position);
 				}

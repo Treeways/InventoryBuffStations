@@ -47,7 +47,8 @@ namespace InventoryBuffStations.Content.Items
 			item.stack += 1;
 
 			if (item.type == ItemID.SliceOfCake) {
-				SoundEngine.PlaySound(SoundID.Item2, player.position);
+				if (!ModContent.GetInstance<ClientConfig>().MuteSoundsToggle)
+					SoundEngine.PlaySound(SoundID.Item2, player.position);
 				player.AddBuff(BuffID.SugarRush, 7200);
 				return;
 			}
@@ -56,9 +57,8 @@ namespace InventoryBuffStations.Content.Items
 				if (item.type == station.Item1) {
 					player.AddBuff(station.Item2, 3);
 
-					if (!ModContent.GetInstance<ClientConfig>().MuteSoundsToggle) {
+					if (!ModContent.GetInstance<ClientConfig>().MuteSoundsToggle)
 						SoundEngine.PlaySound(station.Item3, player.position);
-					}
 				}
 			}
 		}
