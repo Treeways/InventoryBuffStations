@@ -1,9 +1,11 @@
 using Terraria.ModLoader;
 using Terraria.ID;
 using Terraria;
-
-using InventoryBuffStations.Common.Configs;
 using Terraria.Audio;
+
+using InventoryBuffStations;
+using InventoryBuffStations.Common.Configs;
+using System.Collections.Generic;
 
 namespace InventoryBuffStations.Common.Players {
 
@@ -27,39 +29,14 @@ namespace InventoryBuffStations.Common.Players {
 						SoundEngine.PlaySound(SoundID.Item2, Player.position);
 				}
 
-				if (Player.HasItemInAnyInventory(ItemID.AmmoBox) && !Player.HasBuff(BuffID.AmmoBox))
-				{
-					Player.AddBuff(BuffID.AmmoBox, 3);
-					if (!Player.immune && !ModContent.GetInstance<ClientConfig>().MuteSoundsToggle)
-						SoundEngine.PlaySound(SoundID.Item149, Player.position);
-				}
-
-				if (Player.HasItemInAnyInventory(ItemID.BewitchingTable) && !Player.HasBuff(BuffID.Bewitched))
-				{
-					Player.AddBuff(BuffID.Bewitched, 3);
-					if (!Player.immune && !ModContent.GetInstance<ClientConfig>().MuteSoundsToggle)
-						SoundEngine.PlaySound(SoundID.Item4, Player.position);
-				}
-
-				if (Player.HasItemInAnyInventory(ItemID.CrystalBall) && !Player.HasBuff(BuffID.Clairvoyance))
-				{
-					Player.AddBuff(BuffID.Clairvoyance, 3);
-					if (!Player.immune && !ModContent.GetInstance<ClientConfig>().MuteSoundsToggle)
-						SoundEngine.PlaySound(SoundID.Item4, Player.position);
-
-				}
-				if (Player.HasItemInAnyInventory(ItemID.SharpeningStation) && !Player.HasBuff(BuffID.Sharpened))
-				{
-					Player.AddBuff(BuffID.Sharpened, 3);
-					if (!Player.immune && !ModContent.GetInstance<ClientConfig>().MuteSoundsToggle)
-						SoundEngine.PlaySound(SoundID.Item37, Player.position);
-				}
-
-				if (Player.HasItemInAnyInventory(ItemID.WarTable) && !Player.HasBuff(BuffID.WarTable))
-				{
-					Player.AddBuff(BuffID.WarTable, 3);
-					if (!Player.immune && !ModContent.GetInstance<ClientConfig>().MuteSoundsToggle)
-						SoundEngine.PlaySound(SoundID.Item4, Player.position);
+				// Other stations
+				foreach (var station in Stations.stationBuffSfx) {
+					if (Player.HasItemInAnyInventory(station.Item1) && !Player.HasBuff(station.Item2))
+					{
+						Player.AddBuff(station.Item2, 3);
+						if (!Player.immune && !ModContent.GetInstance<ClientConfig>().MuteSoundsToggle)
+							SoundEngine.PlaySound(station.Item3, Player.position);
+					}
 				}
 			}
 		}

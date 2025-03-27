@@ -1,12 +1,16 @@
-using Terraria.ModLoader;
-using Terraria.ID;
 using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 using InventoryBuffStations.Common.Configs;
 
 namespace InventoryBuffStations.Common.Players {
 	public class SugarRushBuff : ModPlayer
 	{
+		/// <summary>
+		/// Applies the Slice of Cake's infinite Sugar Rush buff
+		/// when its config option is toggled.
+		/// </summary>
 		public override void PreUpdate()
 		{
 			base.PreUpdate();

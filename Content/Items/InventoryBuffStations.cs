@@ -3,23 +3,27 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
+using InventoryBuffStations.Common;
 using InventoryBuffStations.Common.Configs;
 
 namespace InventoryBuffStations.Content.Items
 {
 	public class InventoryBuffStations : GlobalItem
 	{
+		/// <summary>
+		/// Applies to all buff stations.
+		/// </summary>
 		public override bool AppliesToEntity(Item item, bool lateInstantiation) {
-			// Forgive me
-			return
-				item.type == ItemID.AmmoBox ||
-				item.type == ItemID.BewitchingTable ||
-				item.type == ItemID.CrystalBall ||
-				item.type == ItemID.SharpeningStation ||
-				item.type == ItemID.WarTable ||
-				item.type == ItemID.SliceOfCake;
+			foreach (var station in Stations.stationBuffSfx) {
+				if (item.type == station.Item1) return true;
+			}
+			return item.type == ItemID.SliceOfCake;
 		}
 
+		/// <summary>
+		/// Toggles individual item picking/dividing, based on the station and config options.
+		/// </summary>
+		/// <param name="item">The item being right-clicked.</param>
 		public override bool CanRightClick(Item item) {
 			if (item.type != ItemID.SliceOfCake
 			&& ModContent.GetInstance<BuffConfig>().ApplyBuffsPassivelyToggle) {
@@ -34,43 +38,28 @@ namespace InventoryBuffStations.Content.Items
 			return true;
 		}
 
+		/// <summary>
+		/// When a station is right-clicked in the inventory, plays a sound and buffs the player.
+		/// </summary>
 		public override void RightClick(Item item, Player player)
 		{
+			// Prevents item deletion
 			item.stack += 1;
-			SoundStyle sound;
 
-			switch (item.type) {
-				case ItemID.AmmoBox:
-					sound = SoundID.Item149;
-					player.AddBuff(BuffID.AmmoBox, 3);
-					break;
-				case ItemID.BewitchingTable:
-					sound = SoundID.Item4;
-					player.AddBuff(BuffID.Bewitched, 3);
-					break;
-				case ItemID.CrystalBall:
-					sound = SoundID.Item4;
-					player.AddBuff(BuffID.Clairvoyance, 3);
-					break;
-				case ItemID.SharpeningStation:
-					sound = SoundID.Item37;
-					player.AddBuff(BuffID.Sharpened, 3);
-					break;
-				case ItemID.WarTable:
-					sound = SoundID.Item4;
-					player.AddBuff(BuffID.WarTable, 3);
-					break;
-				case ItemID.SliceOfCake:
-					sound = SoundID.Item2;
-					player.AddBuff(BuffID.SugarRush, 7200);
-					break;
-				default:
-					sound = SoundID.Meowmere;
-					break;
+			if (item.type == ItemID.SliceOfCake) {
+				SoundEngine.PlaySound(SoundID.Item2, player.position);
+				player.AddBuff(BuffID.SugarRush, 7200);
+				return;
 			}
 
-			if (!ModContent.GetInstance<ClientConfig>().MuteSoundsToggle) {
-				SoundEngine.PlaySound(sound, player.position);
+			foreach (var station in Stations.stationBuffSfx) {
+				if (item.type == station.Item1) {
+					player.AddBuff(station.Item2, 3);
+
+					if (!ModContent.GetInstance<ClientConfig>().MuteSoundsToggle) {
+						SoundEngine.PlaySound(station.Item3, player.position);
+					}
+				}
 			}
 		}
     	}
